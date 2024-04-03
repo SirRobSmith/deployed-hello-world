@@ -1,2 +1,9 @@
-# governance-tools
-A simple tool used to orchestrate technical governance tasks between tools such as JIRA, Confluence and Slack. This tool should be destroyed the instant appropriate functionality is brought to Slack Workflows and/or JIRA Automations.
+# deployed-hello-world
+An extraordinarily simple hello-world application which mostly serves to demonstate a functional app+infrastructure pipeline deployment to our sandbox cluster. 
+
+# Usage as a template
+
+1. Clone this registry locally, using your git method of choice
+2. (Mac/Linux Users) run ./local-setup.sh
+3. Follow the link in your terminal, appending /hello-world (i.e. http://127.0.0.1:5000/hello-world)
+4. Modify as required
