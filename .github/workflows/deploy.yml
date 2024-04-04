@@ -1,0 +1,11 @@
+name: 'A very simple and minimal workflow for deploying python code as a Cloud Run container'
+
+on: 
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - name: ''
+          run: echo hello-world 
