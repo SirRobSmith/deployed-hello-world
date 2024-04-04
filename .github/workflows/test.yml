@@ -11,3 +11,4 @@ jobs:
         steps:
         - name: 'hello-world'
           run: echo ${{ env.MY_VAR }} 
+          run: echo ${{ vars.ENVIRONMENT_NAME }}
