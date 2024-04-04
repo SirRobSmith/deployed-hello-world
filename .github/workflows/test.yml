@@ -2,9 +2,12 @@ name: 'A simple test workflow'
 
 on: [push]
 
+env:
+  MY_VAR: Example
+
 jobs:
     hello-world:
         runs-on: ubuntu-latest
         steps:
         - name: 'hello-world'
-          run: echo ${{ env.ENVIRONMENT_NAME }}
+          run: echo ${{ env.MY_VAR }} 
