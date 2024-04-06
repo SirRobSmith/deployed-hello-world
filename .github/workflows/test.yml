@@ -13,4 +13,4 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - name: 'build-image'
-        run: docker build -t ${{ vars.APP_NAME }}:latest .
+        run: pwd; ls
