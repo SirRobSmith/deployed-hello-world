@@ -14,4 +14,4 @@ jobs:
       steps:
       - uses: actions/checkout@v2
       - name: 'build-image'
-        run: pwd; ls -lah; 
+        run: docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}
