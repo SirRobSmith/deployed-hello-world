@@ -7,3 +7,6 @@ An extraordinarily simple hello-world application which mostly serves to demonst
 2. (Mac/Linux Users) run ./local-setup.sh
 3. Follow the link in your terminal, appending /hello-world (i.e. http://127.0.0.1:5000/hello-world)
 4. Modify as required
+
+# The basic functionality of the Github Actions
+1. Build the image 
