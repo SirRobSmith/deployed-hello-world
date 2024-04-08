@@ -18,20 +18,19 @@ jobs:
         - name: 'gcloud-cli-setup'
           uses: 'google-github-actions/setup-gcloud@v2'
 
-        #- name: 'build-docker-image'
-        #  run: 'docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}'
+        - name: 'build-docker-image'
+          run: 'docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}'
 
-        #- name: 'tag-docker-image'
-        #  run: 'docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
+        - name: 'tag-docker-image'
+          run: 'docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
 
         - name: 'gcloud-info'
           run: 'gcloud info'
 
         - name: 'gcloud-artefact-repos'
-          run: 'gcloud artifacts repositories list'
-          
+          run: 'gcloud artifacts repositories list'  
 
-        #- name: 'push-docker-image'
-        #  run: 'docker push ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
+        - name: 'push-docker-image'
+          run: 'docker push ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
 
 
