@@ -5,9 +5,11 @@ on: [push]
 jobs:
 
     publish-image:
+
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2
+
         - id: 'auth'
           uses: 'google-github-actions/auth@v2'
           with:
@@ -17,12 +19,15 @@ jobs:
           uses: 'google-github-actions/setup-gcloud@v2'
 
         - name: 'build-docker-image'
-          run: docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}
+          run: 'docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}'
 
         - name: 'tag-docker-image'
-          run: docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
+          run: 'docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
+          
+        - name: 'gcloud-info'
+          run: 'gcloud info'
 
         - name: 'push-docker-image'
-          run: docker push ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
+          run: 'docker push ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
 
 
