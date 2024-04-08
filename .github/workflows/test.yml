@@ -18,6 +18,9 @@ jobs:
         - name: 'gcloud-cli-setup'
           uses: 'google-github-actions/setup-gcloud@v2'
 
+        - name: 'docker-credential-helper-setup'
+          run: 'gcloud auth configure-docker ${{ vars.ARTEFACT_REGISTRY_HOSTNAME}}'
+
         - name: 'build-docker-image'
           run: 'docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}'
 
