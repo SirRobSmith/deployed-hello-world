@@ -3,22 +3,26 @@ name: 'A simple test workflow'
 on: [push]
 
 jobs:
-    hello-world:
-        runs-on: ubuntu-latest
-        steps:
-        - name: 'hello-world'
-          run: echo ${{ vars.MY_HELLO_WORLD_VAR }}
 
-    job_id:
+    publish-image:
         runs-on: ubuntu-latest
         steps:
+
         - id: 'auth'
           uses: 'google-github-actions/auth@v2'
           with:
             credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-        - name: 'Set up Cloud SDK'
+        - name: 'gcloud-cli-setup'
           uses: 'google-github-actions/setup-gcloud@v2'
 
-        - name: 'Use gcloud CLI'
-          run: 'gcloud info'
+        - name: 'build-docker-image'
+          run: docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}
+
+        - name: 'tag-docker-image'
+          run: docker tag ${{ vars.APP_NAME}}:latest ${{ ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
+
+        - name: 'push-docker-image'
+          run: docker push -t ${{ ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
+
+
