@@ -9,9 +9,16 @@ jobs:
         - name: 'hello-world'
           run: echo ${{ vars.MY_HELLO_WORLD_VAR }}
 
-    publish-container-image:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v2
-      - name: 'build-image'
-        run: docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}
+    job_id:
+        runs-on: ubuntu-latest
+        steps:
+        - id: 'auth'
+          uses: 'google-github-actions/auth@v2'
+          with:
+            credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+        - name: 'Set up Cloud SDK'
+          uses: 'google-github-actions/setup-gcloud@v2'
+
+        - name: 'Use gcloud CLI'
+          run: 'gcloud info'
