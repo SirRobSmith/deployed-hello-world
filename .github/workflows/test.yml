@@ -23,6 +23,6 @@ jobs:
           run: docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
 
         - name: 'push-docker-image'
-          run: docker push -t ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
+          run: docker push ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
 
 
