@@ -49,9 +49,7 @@ jobs:
       - name: 'terraform-plan'
         run: |
           cd terraform
-          pwd
-          echo ExampleTest
-          pwd
-          echo ${{ env.GCP_CREDENTIALS }} >> credentials.json
-          cat credentials.json
+          echo ${{ secrets.GCP_CREDENTIALS }} > credentials.json
+          cat credentials.json 
+          ls -halt
 
