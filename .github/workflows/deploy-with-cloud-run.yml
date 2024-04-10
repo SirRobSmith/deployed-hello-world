@@ -41,9 +41,11 @@ jobs:
 
       runs-on: ubuntu-latest
       steps:
+      - uses: actions/checkout@v2
+
       - name: 'terraform-plan'
         run: |
           cd terraform
           terraform init
-          terraform plan -var="SERVICE_NAME={{ vars.APP_NAME ))" -var="DOCKER_IMAGE_LOCATION=${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest"
+          terraform plan -var="SERVICE_NAME={{ vars.APP_NAME ))" -var="DOCKER_IMAGE_LOCATION=${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest" -var="vars.GCP_CREDENTIALS=${{ secrets.GCP_CREDENTIALS }}"
 
