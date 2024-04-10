@@ -46,7 +46,8 @@ jobs:
       - name: 'terraform-plan'
         run: |
           cd terraform
+          pwd
+          echo ExampleTest
+          pwd
           echo ${{ secrets.GCP_CREDENTIALS }} >> credentials.json
-          terraform init
-          terraform plan -var="SERVICE_NAME={{ vars.APP_NAME ))" -var="DOCKER_IMAGE_LOCATION=${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest"
 
