@@ -45,6 +45,8 @@ jobs:
 
       - name: 'terraform-plan'
         run: |
+          ls
+          pwd
           cd terraform
           terraform init
           terraform plan -var="SERVICE_NAME={{ vars.APP_NAME ))" -var="DOCKER_IMAGE_LOCATION=${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest" -var="vars.GCP_CREDENTIALS=${{ secrets.GCP_CREDENTIALS }}"
