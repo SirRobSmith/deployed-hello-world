@@ -6,34 +6,44 @@ jobs:
 
     publish-image:
 
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v2
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
 
-        - id: 'auth'
-          uses: 'google-github-actions/auth@v2'
-          with:
-            credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-        - name: 'gcloud-cli-setup'
-          uses: 'google-github-actions/setup-gcloud@v2'
+      - name: 'gcloud-cli-setup'
+        uses: 'google-github-actions/setup-gcloud@v2'
 
-        - name: 'docker-credential-helper-setup'
-          run: 'gcloud auth configure-docker ${{ vars.ARTEFACT_REGISTRY_HOSTNAME}}'
+      - name: 'docker-credential-helper-setup'
+        run: 'gcloud auth configure-docker ${{ vars.ARTEFACT_REGISTRY_HOSTNAME}}'
 
-        - name: 'build-docker-image'
-          run: 'docker build -t ${{ vars.APP_NAME}}:latest .; docker images | grep ${{ vars.APP_NAME }}'
+      - name: 'build-docker-image'
+        run: 'docker build -t ${{ vars.APP_NAME }}:latest .; docker images | grep ${{ vars.APP_NAME }}'
 
-        - name: 'tag-docker-image'
-          run: 'docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
+      - name: 'tag-docker-image'
+        run: 'docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
 
-        - name: 'gcloud-info'
-          run: 'gcloud info'
+      - name: 'gcloud-info'
+        run: 'gcloud info'
 
-        - name: 'gcloud-artefact-repos'
-          run: 'gcloud artifacts repositories list'  
+      - name: 'gcloud-artefact-repos'
+        run: 'gcloud artifacts repositories list'  
 
-        - name: 'push-docker-image'
-          run: 'docker push ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
+      - name: 'push-docker-image'
+        run: 'docker push ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
 
+    deploy-cloud-run:
+      needs: publish-image
+
+      runs-on: ubuntu-latest
+      steps:
+      - name: 'terraform-plan'
+        run: |
+          cd terraform
+          terraform init
+          terraform plan -var="SERVICE_NAME={{ vars.APP_NAME ))" -var="DOCKER_IMAGE_LOCATION=${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest"
 

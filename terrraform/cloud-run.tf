@@ -1,14 +1,23 @@
 provider "google" {
-  credentials = "${file("/Users/rob/Downloads/ab-architecture-eba1ad488d71.json")}"
+  credentials = "${file("/Users/robsmith/Downloads/ab-architecture-eba1ad488d71.json")}"
   project     = "ab-architecture"
   region      = "europe-west1"
   zone        = "europe-west1-c"
 }
 
-resource "google_storage_bucket" "static" {
-  name          = "robsmith-new-bucket"
-  location      = "EU"
-  storage_class = "COLDLINE"
+variable SERVICE_NAME {
+}
+variable DOCKER_IMAGE_LOCATION {
+}
 
-  uniform_bucket_level_access = true
+resource "google_cloud_run_v2_service" "default" {
+  name     = var.SERVICE_NAME
+  location = "europe-west1"
+  ingress = "INGRESS_TRAFFIC_ALL"
+
+  template {
+    containers {
+      image = var.DOCKER_IMAGE_LOCATION
+    }
+  }
 }
