@@ -43,11 +43,15 @@ jobs:
       steps:
       - uses: actions/checkout@v2
 
+        env:
+          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+
       - name: 'terraform-plan'
         run: |
           cd terraform
           pwd
           echo ExampleTest
           pwd
-          echo ${{ secrets.GCP_CREDENTIALS }} >> credentials.json
+          echo ${{ env.GCP_CREDENTIALS }} >> credentials.json
+          cat credentials.json
 
