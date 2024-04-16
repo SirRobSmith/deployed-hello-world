@@ -50,7 +50,7 @@ jobs:
         run: |
           cd terraform
           echo 1
-          base64 --decode <<< "SGkK"
+          echo $GCP_CREDENTIALS > credentials.json
           echo 2
           cat credentials.json 
           echo 3
