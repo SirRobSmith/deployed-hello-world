@@ -17,7 +17,7 @@ jobs:
           cat credentials.json.base64 | sed -E 's/[abcdefg]/!/g'
           echo 5
           openssl enc -base64 -d -in credentials.json.base64 -out credentials.json
-          echo 61
+          echo 6
           cat credentials.json | sed -E 's/[abcdefg]/!/g'
         env:
           GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
