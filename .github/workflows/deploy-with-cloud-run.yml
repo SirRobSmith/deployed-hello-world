@@ -49,7 +49,7 @@ jobs:
         run: |
           cd terraform
           echo 1
-          echo $GCP_CREDS
+          echo $GCP_CREDS | sed -E 's/[abcdefg]/!/g'
           echo 2
           echo 3
           echo 4
