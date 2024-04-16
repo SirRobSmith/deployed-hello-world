@@ -43,14 +43,11 @@ jobs:
       steps:
       - uses: actions/checkout@v2
 
-        env:
-          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-
       - name: 'terraform-plan'
         run: |
           cd terraform
           echo 1
-          echo "${{ secrets.GCP_CREDENTIALS }}" > credentials.json
+          base64 -d ${{ secrets.GCP_CREDENTIALS }} > credentials.json
           echo 2
           cat credentials.json 
           echo 3
