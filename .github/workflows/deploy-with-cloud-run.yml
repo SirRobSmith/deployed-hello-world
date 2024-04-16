@@ -43,8 +43,7 @@ jobs:
       steps:
       - uses: actions/checkout@v2
 
-        env:
-          GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
+
 
       - name: 'terraform-plan'
         run: |
@@ -58,3 +57,5 @@ jobs:
           echo 4
           ls -halt
 
+        env:
+          GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
