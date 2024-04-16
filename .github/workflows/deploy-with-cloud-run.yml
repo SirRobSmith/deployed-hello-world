@@ -51,8 +51,15 @@ jobs:
           echo 1
           echo $GCP_CREDS | sed -E 's/[abcdefg]/!/g'
           echo 2
-          base64 --decode <<< $GCP_CREDS
+          echo $GCP_CREDS > credentials.json.base64
           echo 3
+          ls -halt
+          echo 4
+          cat credentials.json.base64 | sed -E 's/[abcdefg]/!/g'
+          base64 --decode --input credentials.json.base64 --output credentials.json
+          echo 5
+          cat credentials.json
+          echo 6
           ls -halt
         env:
           GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
