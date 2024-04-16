@@ -50,10 +50,11 @@ jobs:
         run: |
           cd terraform
           echo 1
-          echo $GCP_CREDENTIALS > credentials.json
+          echo ${{ secrets.GCP_CREDENTIALS }}
           echo 2
-          cat credentials.json 
+          echo $GCP_CREDENTIALS > credentials.json
           echo 3
-          ls -halt
+          cat credentials.json 
           echo 4
+          ls -halt
 
