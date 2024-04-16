@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-         echo '$CREDENTIAL_CONTENT' | base64 
+         echo '$CREDENTIAL_CONTENT' | base64
