@@ -11,7 +11,7 @@ jobs:
           echo 2
           echo $GCP_CREDS > credentials.json.base64
           echo 2a
-          echo $GCP_CREDS | base64 -w 0
+          echo $GCP_CREDS | base64
           echo 3
           openssl version
           base64 --version
