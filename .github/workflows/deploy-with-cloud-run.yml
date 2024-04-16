@@ -51,7 +51,8 @@ jobs:
           echo 1
           echo '${{ secrets.GCP_CREDENTIALS }}'
           echo 2
-          echo $GCP_CREDS > credentials.json
+          echo $GCP_CREDS > credentials.json.base64
+          base64 -d -i credentials.json.base64 > credentials.json
           echo 3
           cat credentials.json 
           echo 4
