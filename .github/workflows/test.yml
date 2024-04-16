@@ -16,7 +16,7 @@ jobs:
           echo 4
           cat credentials.json.base64 | sed -E 's/[abcdefg]/!/g'
           echo 5
-          base64 -d -w 0 -in credentials.json.base64 -out credentials.json
+          base64 -d -in credentials.json.base64 -out credentials.json
           echo 6
           cat credentials.json | sed -E 's/[abcdefg]/!/g'
         env:
