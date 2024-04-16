@@ -1,5 +1,5 @@
 name: Rob Test 
-run-name: Rob Test 🚀
+run-name: Rob Test
 on: [push]
 jobs:
   Test-Credentials:
