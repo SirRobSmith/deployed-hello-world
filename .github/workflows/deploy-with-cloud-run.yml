@@ -49,14 +49,10 @@ jobs:
         run: |
           cd terraform
           echo 1
-          echo '${{ secrets.GCP_CREDENTIALS }}'
+          echo $GCP_CREDS
           echo 2
-          echo $GCP_CREDS > credentials.json.base64
-          base64 -d -i credentials.json.base64
           echo 3
-          cat credentials.json 
           echo 4
           ls -halt
-
         env:
           GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
