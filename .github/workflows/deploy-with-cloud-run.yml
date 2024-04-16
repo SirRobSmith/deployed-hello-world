@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v2
 
         env:
-          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+          GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
 
       - name: 'terraform-plan'
         run: |
@@ -52,7 +52,7 @@ jobs:
           echo 1
           echo '${{ secrets.GCP_CREDENTIALS }}'
           echo 2
-          echo $GCP_CREDENTIALS > credentials.json
+          echo $GCP_CREDS > credentials.json
           echo 3
           cat credentials.json 
           echo 4
