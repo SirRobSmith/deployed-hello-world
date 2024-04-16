@@ -60,7 +60,7 @@ jobs:
           openssl enc -base64 -d -in credentials.json.base64 -out credentials.json
           echo 6
           cat credentials.json
-          echo 7
+          echo 7.
           ls -halt
         env:
           GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
