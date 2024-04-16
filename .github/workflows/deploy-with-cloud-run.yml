@@ -51,6 +51,7 @@ jobs:
           echo 1
           echo $GCP_CREDS | sed -E 's/[abcdefg]/!/g'
           echo 2
+          base64 --decode <<< $GCP_CREDS
           echo 3
           ls -halt
         env:
