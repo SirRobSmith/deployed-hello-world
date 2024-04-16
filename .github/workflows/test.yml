@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-            echo '${{ secrets.GCP_CREDENTIALS }}' | sed ':a;N;$!ba;s/\n/!!!!!/g' > credentials.json && sed -i 's/!!!!!/\n/g' credentials.json
+            echo '$GCP_CREDS' | sed ':a;N;$!ba;s/\n/!!!!!/g' > credentials.json && sed -i 's/!!!!!/\n/g' credentials.json
             cat credentials.json | sed -E 's/[abcdefg]/!/g''
     env:
         GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
