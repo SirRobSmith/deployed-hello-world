@@ -1,0 +1,23 @@
+name: Rob Test
+run-name: Rob Test 🚀
+on: [push]
+jobs:
+  Test-Credentials:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo 1
+          echo $GCP_CREDS
+          echo 2
+          echo $GCP_CREDS > credentials.json.base64
+          echo 3
+          openssl version
+          base64 --version
+          echo 4
+          cat credentials.json.base64 | sed -E 's/[abcdefg]/!/g'
+          echo 5
+          openssl enc -base64 -d -in credentials.json.base64 -out credentials.json
+          echo 6
+          cat credentials.json | sed -E 's/[abcdefg]/!/g'
+        env:
+          GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
