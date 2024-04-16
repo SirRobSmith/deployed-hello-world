@@ -52,7 +52,7 @@ jobs:
           echo 1
           echo ${{ env.GCP_CREDENTIALS }}
           echo 1.1
-          echo -n '${{ env.GCP_CREDENTIALS }}' | base64 --decode > credentials.json
+          base64 --decode <<< ${{ secrets.GCP_CREDENTIALS }}
           echo 2
           cat credentials.json 
           echo 3
