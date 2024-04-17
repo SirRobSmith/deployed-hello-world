@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-         echo '${{ secrets.CREDENTIAL_CONTENT }}' | base64 -d
+         echo '${{ secrets.ALT_CREDENTIAL_CONTENT }}' | base64 -d
