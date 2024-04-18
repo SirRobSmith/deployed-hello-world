@@ -1,6 +1,9 @@
 name: Rob Test 
 run-name: Rob Test
-on: [push]
+on: 
+  pull_request:
+    branches:
+      - master
 
 jobs:
   Test-Credentials:

@@ -1,9 +1,6 @@
 name: 'A simple test workflow'
 
-on: 
-  pull_request:
-    branches:
-      - master
+on: [push]
 
 jobs:
 
@@ -50,20 +47,11 @@ jobs:
 
       - name: 'terraform-plan'
         run: |
+          echo "- Export Secret to credentials.json"
+          echo '${{ secrets.ALT_CREDENTIAL_CONTENT }}' | base64 -d > credentials.json
+          echo "- View the files in the current directory"
+          ls -halt
+          echo "- Change to the terraform directory"
           cd terraform
-          echo 1
-          echo $GCP_CREDS | sed -E 's/[abcdefg]/!/g'
-          echo 2
-          echo $GCP_CREDS > credentials.json.base64
-          echo 3
-          ls -halt
-          echo 4
-          cat credentials.json.base64 | sed -E 's/[abcdefg]/!/g'
-          echo 5
-          openssl enc -base64 -d -in credentials.json.base64 -out credentials.json
-          echo 6
-          cat credentials.json
-          echo 7
-          ls -halt
-        env:
-          GCP_CREDS: ${{ secrets.GCP_CREDENTIALS }}
+          echo "- Run terraform plan"
+          terraform plan -var "SERVICE_NAME=MyServiceName" -var "DOCKER_IMAGE_LOCATION=google.com/something"
