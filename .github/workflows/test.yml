@@ -8,5 +8,7 @@ jobs:
     steps:
       - run: |
          echo '${{ secrets.ALT_CREDENTIAL_CONTENT }}' | base64 -d > credentials.json
-         echo ls -halt
+         ls -halt
          cat credentials.json | sed -E 's/[abcdefg]/!/g'
+         cd terraform
+         terraform plan -var "SERVICE_NAME=MyServiceName" -var "DOCKER_IMAGE_LOCATION=google.com/something"

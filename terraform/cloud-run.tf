@@ -5,10 +5,8 @@ provider "google" {
   zone        = "europe-west1-c"
 }
 
-variable SERVICE_NAME {
-}
-variable DOCKER_IMAGE_LOCATION {
-}
+variable SERVICE_NAME {}
+variable DOCKER_IMAGE_LOCATION {}
 
 resource "google_cloud_run_v2_service" "default" {
   name     = var.SERVICE_NAME
