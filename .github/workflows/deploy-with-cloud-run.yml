@@ -47,12 +47,12 @@ jobs:
 
       - name: 'terraform-plan'
         run: |
+          echo "- Change to the terraform directory"
+          cd terraform
           echo "- Export Secret to credentials.json"
           echo '${{ secrets.ALT_CREDENTIAL_CONTENT }}' | base64 -d > credentials.json
           echo "- View the files in the current directory"
           ls -halt
-          echo "- Change to the terraform directory"
-          cd terraform
           echo "- Initiaitlise terraform"
           terraform init
           echo "- Run terraform plan"
