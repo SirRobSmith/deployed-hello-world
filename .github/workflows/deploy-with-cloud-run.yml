@@ -53,5 +53,7 @@ jobs:
           ls -halt
           echo "- Change to the terraform directory"
           cd terraform
+          echo "- Initiaitlise terraform"
+          terraform init
           echo "- Run terraform plan"
           terraform plan -var "SERVICE_NAME=MyServiceName" -var "DOCKER_IMAGE_LOCATION=google.com/something"
