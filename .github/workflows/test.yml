@@ -7,8 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
+         echo "- Export Secret to credentials.json"
          echo '${{ secrets.ALT_CREDENTIAL_CONTENT }}' | base64 -d > credentials.json
+         echo "- View the files in the current directory"
          ls -halt
-         cat credentials.json | sed -E 's/[abcdefg]/!/g'
+         echo "- Change to the terraform directory"
          cd terraform
+         echo "- Run terraform plan"
          terraform plan -var "SERVICE_NAME=MyServiceName" -var "DOCKER_IMAGE_LOCATION=google.com/something"
