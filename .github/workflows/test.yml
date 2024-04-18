@@ -1,9 +1,12 @@
 name: Rob Test 
 run-name: Rob Test
 on: [push]
+
 jobs:
   Test-Credentials:
     runs-on: ubuntu-latest
     steps:
       - run: |
-         echo '${{ secrets.ALT_CREDENTIAL_CONTENT }}' | base64 -d
+         echo '${{ secrets.ALT_CREDENTIAL_CONTENT }}' | base64 -d > credentials.json
+         echo ls -halt
+         cat credentials.json | sed -E 's/[abcdefg]/!/g'
