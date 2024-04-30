@@ -37,7 +37,10 @@ resource "google_cloud_run_service" "default" {
     spec {
       containers {
         image = var.docker_image_location
-      
+          env {
+            name = "IMAGE_DETAILS"
+            value = var.docker_image_location
+          }
           startup_probe {
               initial_delay_seconds = 0
               timeout_seconds = 1
