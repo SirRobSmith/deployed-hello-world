@@ -63,7 +63,8 @@ jobs:
           TF_VAR_zone: ${{ vars.GCP_ZONE }}
           TF_VAR_service_name: ${{ vars.APP_NAME }}
           TF_VAR_docker_image_location: ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
+          GOOGLE_APPLICATION_CREDENTIALS: "credentials.json"
 
-          
+
 
 
