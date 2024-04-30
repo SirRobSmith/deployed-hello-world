@@ -22,10 +22,10 @@ jobs:
         run: 'gcloud auth configure-docker ${{ vars.ARTEFACT_REGISTRY_HOSTNAME}}'
 
       - name: 'build-docker-image'
-        run: 'docker build -t ${{ vars.APP_NAME }}:latest .; docker images | grep ${{ vars.APP_NAME }}'
+        run: 'docker build -t ${{ vars.APP_NAME }}:$GITHUB_SHA .; docker images | grep ${{ vars.APP_NAME }}'
 
       - name: 'tag-docker-image'
-        run: 'docker tag ${{ vars.APP_NAME}}:latest ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest'
+        run: 'docker tag ${{ vars.APP_NAME}}:$GITHUB_SHA ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:$GITHUB_SHA'
 
       - name: 'gcloud-info'
         run: 'gcloud info'
