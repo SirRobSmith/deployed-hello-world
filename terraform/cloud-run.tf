@@ -1,21 +1,76 @@
 provider "google" {
   credentials = "${file("credentials.json")}"
-  project     = "ab-architecture"
-  region      = "europe-west1"
-  zone        = "europe-west1-c"
+  project     = var.project_name
+  region      = var.region
+  zone        = var.zone
 }
 
-variable SERVICE_NAME {}
-variable DOCKER_IMAGE_LOCATION {}
+variable "project_name" {
+  type = string
+  description = "The GCP project to which these settings relate"
+}
+variable "region" {
+  type = string
+  description = "The GCP region"
+}
+variable "zone" {
+  type = string
+  description = "The GCP zone"
+}
 
-resource "google_cloud_run_v2_service" "default" {
-  name     = var.SERVICE_NAME
-  location = "europe-west1"
-  ingress = "INGRESS_TRAFFIC_ALL"
+variable service_name {
+  type = string
+  description = "The given name of the service. "
+}
+
+variable docker_image_location {
+  type = string
+  description = "The artefact registry location for the code."
+}
+
+resource "google_cloud_run_service" "default" {
+  name      = var.service_name
+  location  = var.zone
+  project   = var.project_name
 
   template {
-    containers {
-      image = var.DOCKER_IMAGE_LOCATION
+    spec {
+      containers {
+        image = var.docker_image_location
+      
+          startup_probe {
+              initial_delay_seconds = 0
+              timeout_seconds = 1
+              period_seconds = 3
+              failure_threshold = 1
+              tcp_socket {
+                port = 8080
+              }
+            }
+            liveness_probe {
+              http_get {
+                path = "/hello-world"
+                port = 8080
+              }
+            }
+        }
     }
   }
+}
+
+data "google_iam_policy" "noauth" {
+  binding {
+    role = "roles/run.invoker"
+    members = [
+      "allUsers",
+    ]
+  }
+}
+
+resource "google_cloud_run_service_iam_policy" "noauth" {
+  location    = google_cloud_run_service.default.location
+  project     = google_cloud_run_service.default.project
+  service     = google_cloud_run_service.default.name
+
+  policy_data = data.google_iam_policy.noauth.policy_data
 }

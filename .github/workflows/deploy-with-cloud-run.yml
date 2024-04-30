@@ -56,4 +56,14 @@ jobs:
           echo "- Initiaitlise terraform"
           terraform init
           echo "- Run terraform plan"
-          terraform plan -var "SERVICE_NAME=MyServiceName" -var "DOCKER_IMAGE_LOCATION=google.com/something"
+          terraform plan
+        env:
+          TF_VAR_project_name: ${{ vars.PROJECT_NAME }}
+          TF_VAR_region: ${{ vars.GCP_REGION }}
+          TF_VAR_zone: ${{ vars.GCP_ZONE }}
+          TF_VAR_service_name: ${{ vars.APP_NAME }}
+          TF_VAR_docker_image_location: ${{ vars.ARTEFACT_REGISTRY_ROOT}}/${{ vars.APP_NAME }}:latest
+
+          
+
+
