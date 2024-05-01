@@ -1,8 +1,9 @@
 name: 'Simple GCP Cloud Run Workflow'
 
-on: pull_request:
-  branches:
-    - main
+on: 
+  pull_request:
+    branches:
+      - main
 
 
 jobs:
