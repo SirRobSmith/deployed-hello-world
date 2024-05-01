@@ -1,6 +1,9 @@
-name: 'A simple test workflow'
+name: 'Simple GCP Cloud Run Workflow'
 
-on: [push]
+on: pull_request:
+  branches:
+    - main
+
 
 jobs:
 
@@ -57,10 +60,6 @@ jobs:
           terraform init
           echo "- Run terraform plan"
           terraform plan
-          echo "GITHUB_SHA = $GITHUB_SHA"
-          echo "--------------"
-          echo $GITHUB_CONTEXT
-          echo "--------------"
           terraform apply -auto-approve
         env:
           TF_VAR_project_name: ${{ vars.GCP_PROJECT_NAME }}
